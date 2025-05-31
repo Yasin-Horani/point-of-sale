@@ -3,8 +3,6 @@ package com.yasin.pos.pos.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Generated;
 
 @Entity
 @Table(name = "products")
