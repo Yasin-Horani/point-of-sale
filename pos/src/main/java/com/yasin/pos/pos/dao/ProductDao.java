@@ -39,7 +39,7 @@ public class ProductDao {
         return optional.isPresent() ? optional.get() : null;
     }
 
-    //
+    //get product by id
    public ProductEntity findByProductId(Integer productId){
         Optional<ProductEntity> optional = this.productRepo.findById(productId);
         return optional.isPresent() ? optional.get() : null;
