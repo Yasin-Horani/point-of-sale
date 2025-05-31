@@ -11,7 +11,14 @@ public class ProductDao {
     @Autowired
     private ProductRepo productRepo;
 
+    // add new product
     public ProductEntity addProduct(ProductEntity product) {
         return this.productRepo.save(product);
     }
+
+    // delete product
+    public void deleteProduct(Integer productId) {
+        this.productRepo.deleteById(productId);
+    }
+
 }
