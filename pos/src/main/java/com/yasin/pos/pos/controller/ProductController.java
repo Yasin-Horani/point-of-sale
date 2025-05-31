@@ -5,6 +5,8 @@ import com.yasin.pos.pos.entity.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/products")
 public class ProductController {
@@ -29,5 +31,17 @@ public class ProductController {
     public String deleteProduct(@RequestParam Integer productId) {
         this.productDao.deleteProduct(productId);
         return "Product deleted" + productId;
+    }
+
+    // get product by barcode
+    @GetMapping(path = "/find-product-by-barcode")
+    public ProductEntity findByProductBarcode(@RequestParam String barcode) {
+        return this.productDao.findByProductBarcode(barcode);
+    }
+
+    // get product by barcode
+    @GetMapping(path = "/find-product-by-id")
+    public ProductEntity findByProductId(@RequestParam Integer productId) {
+        return this.productDao.findByProductId(productId);
     }
 }
