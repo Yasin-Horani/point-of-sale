@@ -18,6 +18,12 @@ public class ProductController {
         return this.productDao.addProduct(product);
     }
 
+    //update new product
+    @PostMapping(path = "/update-product")
+    public ProductEntity updateProduct(@RequestBody ProductEntity product) {
+        return this.productDao.updateProduct(product);
+    }
+
     //Delete product
     @DeleteMapping(path = "/delete-product")
     public String deleteProduct(@RequestParam Integer productId) {

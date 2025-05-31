@@ -16,8 +16,18 @@ public class ProductDao {
         return this.productRepo.save(product);
     }
 
+    // update new product
+    public ProductEntity updateProduct(ProductEntity product) {
+        if (product.getProductId() == null) {
+            throw new RuntimeException("Product ID must not be null for update.");
+        }
+        return productRepo.save(product);
+    }
+
+
     // delete product
     public void deleteProduct(Integer productId) {
+
         this.productRepo.deleteById(productId);
     }
 
