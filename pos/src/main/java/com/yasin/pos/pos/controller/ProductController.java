@@ -44,4 +44,10 @@ public class ProductController {
     public ProductEntity findByProductId(@RequestParam Integer productId) {
         return this.productDao.findByProductId(productId);
     }
+
+    // get all products
+    @GetMapping(path = "/all-products")
+    public List<ProductEntity> getAllProducts() {
+        return this.productDao.getAllProducts();
+    }
 }

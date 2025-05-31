@@ -34,15 +34,20 @@ public class ProductDao {
     }
 
     // get product by barcode
-    public ProductEntity findByProductBarcode(String barcode){
+    public ProductEntity findByProductBarcode(String barcode) {
         Optional<ProductEntity> optional = Optional.ofNullable(this.productRepo.findByProductBarcode(barcode));
         return optional.isPresent() ? optional.get() : null;
     }
 
     //get product by id
-   public ProductEntity findByProductId(Integer productId){
+    public ProductEntity findByProductId(Integer productId) {
         Optional<ProductEntity> optional = this.productRepo.findById(productId);
         return optional.isPresent() ? optional.get() : null;
-   }
+    }
+
+    // get all products
+    public List<ProductEntity> getAllProducts() {
+        return this.productRepo.findAll();
+    }
 
 }
