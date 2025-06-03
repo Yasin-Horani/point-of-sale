@@ -28,7 +28,7 @@ public class ProductDao {
     }
 
 
-    // delete product
+    // delete product by id
     public void deleteProduct(Integer productId) {
         this.productRepo.deleteById(productId);
     }
