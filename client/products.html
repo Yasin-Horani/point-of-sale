@@ -27,8 +27,8 @@
     <div class="row">
 
         <div class="col-lg-6">
-            <div class="form-group" >
-                <table class="table "   >
+            <div class="form-group">
+                <table class="table ">
                     <thead>
                     <tr>
                         <th>Product Name</th>
@@ -36,15 +36,8 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <button class="btn btn-success btn-xs">Update</button>
-                            <button class="btn btn-danger btn-xs">Delete</button>
-                        </td>
-                    </tr>
+                    <tbody id="products">
+
                     </tbody>
 
                 </table>
@@ -52,29 +45,101 @@
 
         </div>
         <div class="col-lg-6">
-            <div class="form-group" >
+            <div class="form-group">
                 <label for="productName">Product Name</label>
                 <input type="text" id="productName" class="form-control">
             </div>
-            <div class="form-group" >
+            <div class="form-group">
                 <label for="productPrice">Product Price</label>
                 <input type="text" id="productPrice" class="form-control">
             </div>
-            <div class="form-group" >
-                <label for="productCode">Product Barcode</label>
-                <input type="text" id="productCode" class="form-control">
+            <div class="form-group">
+                <label for="barcode">Product Barcode</label>
+                <input type="text" id="barcode" class="form-control">
             </div>
-            <div class="form-group" >
-                <button class="btn btn-primary btn-sm">Save Product</button>
+            <div class="form-group">
+                <button class="btn btn-primary btn-sm" onclick="addProduct()">Save Product</button>
             </div>
         </div>
     </div>
 </div>
 
 </body>
-
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        getProducts();
+    });
+
+
+    function getProducts() {
+        let body = $("#products").html('');
+        $.ajax({
+            url: 'http://localhost:8081/products/all-products',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (resp) {
+                for (let i = 0; i < resp.length; i++) {
+                    body += ' <tr id="row-' + resp[i].productId + '">\n' +
+                        '                        <td>' + resp[i].productName + '</td>\n' +
+                        '                        <td>' + resp[i].productPrice + '</td>\n' +
+                        '                        <td>\n' +
+                        '                            <button onclick="deleteRow(' + resp[i].productId + ')" class="btn btn-danger btn-xs">X</button>\n' +
+                        '                        </td>\n' +
+                        '                    </tr>';
+
+                }
+                console.log(body);
+                $("#products").html(body);
+            }
+        });
+    }
+
+    function deleteRow(productId) {
+        $.ajax({
+            url: 'http://localhost:8081/products/delete-product?productId=' + productId,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            type: 'DELETE',
+            dataType: 'JSON',
+            success: function (resp) {
+                getProducts();
+            }
+        });
+    }
+
+    function addProduct() {
+        let data = {
+            productName: $("#productName").val(),
+            productPrice: parseFloat($("#productPrice").val()),
+            barcode: $("#barcode").val()
+        };
+
+        $.ajax({
+            url: 'http://localhost:8081/products/add-product',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (resp) {
+                alert("Product added successfully!");
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Add product failed:", xhr.responseText || error);
+                alert("Failed to add product: " + (xhr.responseText || error));
+            }
+        });
+    }
+
+
+</script>
 
 </html>
