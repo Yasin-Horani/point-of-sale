@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>DASHBOARD</title>
@@ -10,6 +11,7 @@
 
 
 </head>
+
 <body>
 
 <div class="container">
@@ -51,7 +53,7 @@
                 </table>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary">Complete</button>
+                <button onclick="saveOrder()" class="btn btn-primary" >Complete</button>
             </div>
 
         </div>
@@ -110,13 +112,28 @@
         $("#row-" + rowId).remove();
         total -= productPrice;
         $("#total").html(total);
-         items = $.grep(items, function(e){
+        items = $.grep(items, function (e) {
             return e.productId != rowId;
         });
-         console.log(items);
+        console.log(items);
     }
 
-
+    function saveOrder() {
+        $.ajax({
+            url: 'http://localhost:8081/orders/save-order',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            type: 'POST',
+            data: JSON.stringify(items),
+            dataType: 'JSON',
+            success: function (resp) {
+                console.log(resp);
+                alert("Successfully saved Order NO : " + resp.orderId);
+                window.location.reload();
+            }
+        });
+    }
 
 
 </script>
