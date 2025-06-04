@@ -1,15 +1,15 @@
 package com.yasin.pos.pos.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "products")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Data
 public class ProductEntity {
     @Id
@@ -25,4 +25,11 @@ public class ProductEntity {
 
     @Column(name = "barcode")
     private String productBarcode;
+
+
+
+    @OneToMany(mappedBy = "product")
+    @JsonBackReference
+    private List<SaleEntity> sales;
+
 }

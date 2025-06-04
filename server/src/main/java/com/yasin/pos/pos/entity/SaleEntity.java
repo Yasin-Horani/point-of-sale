@@ -1,7 +1,9 @@
 package com.yasin.pos.pos.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
 @Entity
 @Data
 @Table(name = "sales")
@@ -15,10 +17,16 @@ public class SaleEntity {
     private Integer productId;
 
     @Column(name = "order_id")
-    private Integer orederId;
+    private Integer orderId;
 
     @Column(name = "created_at")
     private String createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @JsonManagedReference
+    private ProductEntity product;
+
 
 }
 

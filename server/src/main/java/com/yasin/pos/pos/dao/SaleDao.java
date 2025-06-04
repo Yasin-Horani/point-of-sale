@@ -29,10 +29,14 @@ public class SaleDao {
         OrderEntity orderEntity = this.orderDao.saveOrder(order);
         for (OrderDto orderDto : order) {
             SaleEntity sale = new SaleEntity();
-            sale.setOrederId(orderEntity.getOrderId());
+            sale.setOrderId(orderEntity.getOrderId());
             sale.setProductId(orderDto.getProductId());
             this.saleRepo.save(sale);
         }
         return orderEntity;
+    }
+
+    public List<SaleEntity> getSales() {
+        return this.saleRepo.findAll();
     }
 }
