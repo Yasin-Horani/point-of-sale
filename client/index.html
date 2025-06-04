@@ -79,7 +79,7 @@
         let body = $("#items").html();
         const barcode = e.target.value;
         $.ajax({
-            url: 'http://localhost:8081/products/get-by-barcode?barcode=' + barcode,
+            url: 'http://localhost:8081/products/find-product-by-barcode?barcode=' + barcode,
             type: 'GET',
             dataType: 'JSON',
             success: function (resp) {
