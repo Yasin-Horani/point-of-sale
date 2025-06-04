@@ -22,6 +22,9 @@ public class OrderDao {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setTotal(totalPrice);
         return this.orderRepo.save(orderEntity);
+    }
 
+    public List<OrderEntity> getAllOrders() {
+        return this.orderRepo.findAll();
     }
 }

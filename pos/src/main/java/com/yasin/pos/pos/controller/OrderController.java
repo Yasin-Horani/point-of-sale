@@ -5,10 +5,7 @@ import com.yasin.pos.pos.dao.SaleDao;
 import com.yasin.pos.pos.dto.OrderDto;
 import com.yasin.pos.pos.entity.OrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,11 @@ public class OrderController {
     @PostMapping(path = "/save-order")
     public OrderEntity saveOrder(@RequestBody List<OrderDto> order) {
         return this.saleDao.savaSale(order);
+    }
+
+    // get all orders
+    @GetMapping(path = "/all-orders")
+    public List<OrderEntity> getAllOrders() {
+        return this.orderDao.getAllOrders();
     }
 }
