@@ -17,7 +17,7 @@ public class SaleController {
     @Autowired
     private SaleDao saleDao;
 
-
+    // get all sales
     @GetMapping(path = "/all-sales")
     public List<SaleEntity> getSales(){
        return this.saleDao.getSales();
